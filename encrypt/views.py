@@ -35,14 +35,12 @@ def get_encrpypted_image(data_hidden, data_use):
     return data_use_image
 
 
-
-
 class EncryptImageListCreate(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated, ]
     queryset = EncryptImages.objects.all().order_by('-created_at')
     serializer_class = EncryptImagesSerializer
     def get(self, request, format=None):
-        snippets = EncryptImages.objects.all()
+        snippets = EncryptImages.objects.all().filter(owner = self.request.user)
         serializer = EncryptImagesSerializer(snippets, many=True)
         return Response(serializer.data)
 

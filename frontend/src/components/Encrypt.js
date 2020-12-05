@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import '../css/Classifier.css'
 import {Spinner, Button, Alert, Image} from 'react-bootstrap'
 import axios from 'axios'
+import Navigation from './Navigation';
 
 class Encrypt extends Component {
     state = { 
@@ -10,7 +11,8 @@ class Encrypt extends Component {
         isLoading: false,
         recentImage: null,
         to_be_hidden_path: null,
-        encrypted_picture_path:null
+        encrypted_picture_path:null,
+        token: localStorage.getItem("token"),
      }
 
      onDrop =(files) =>{
@@ -52,7 +54,8 @@ class Encrypt extends Component {
          axios.post('http://localhost:8000/api/encrypt/', formData, {
              headers: {
                 'accept': 'application/json',
-                'content-type': 'multipart/form-data'
+                'content-type': 'multipart/form-data',
+                'authorization': `Token ${this.state.token}`,
              }
          })
          .then(resp=>{
@@ -69,6 +72,7 @@ class Encrypt extends Component {
          axios.get(`http://localhost:8000/api/encrypt/`, {
             headers: {
                 'accept': 'application/json',
+                'authorization': `Token ${this.state.token}`,
             }
          })
          .then(resp=>{
@@ -93,38 +97,43 @@ class Encrypt extends Component {
           ));
 
         return ( 
-            <Dropzone onDrop={this.onDrop} accept='image/png, image/jpeg'>
-            {({isDragActive, getRootProps, getInputProps}) => (
-              <section className="container">
-                <div {...getRootProps({className: 'dropzone back'})}>
-                  <input {...getInputProps()} />
-                  <i className="far fa-image mb-2 text-muted" style={{fontSize:100}}></i>
-                  <p className='text-muted'>{isDragActive ? "Here we GO!! " : "Drag images here to Encrypt"}</p>
-                </div>
-                <h2>First Image will be hidden in Second Image</h2>
-                <aside>{files}</aside>
+            <div>
+                <Navigation />
 
-                {this.state.files.length >1 &&
-                <Button variant='info' size='lg' className='mt-3' onClick={this.sendImage}>Encrypt!</Button>
-                }
+                <Dropzone onDrop={this.onDrop} accept='image/png, image/jpeg'>
+                    {({isDragActive, getRootProps, getInputProps}) => (
+                        <section className="container">
+                        <div {...getRootProps({className: 'dropzone back'})}>
+                            <input {...getInputProps()} />
+                            <i className="far fa-image mb-2 text-muted" style={{fontSize:100}}></i>
+                            <p className='text-muted'>{isDragActive ? "Here we GO!! " : "Drag images here to Encrypt"}</p>
+                        </div>
+                        <h2>First Image will be hidden in Second Image</h2>
+                        <aside>{files}</aside>
 
-                {this.state.isLoading &&
-                <Spinner animation="border" role="status"></Spinner>
-                }
+                        {this.state.files.length >1 &&
+                        <Button variant='info' size='lg' className='mt-3' onClick={this.sendImage}>Encrypt!</Button>
+                        }
 
-                {this.state.recentImage &&
-                <React.Fragment>
-                    <Alert variant='primary'>
-                        <h3>This image is hidden</h3> <br />
-                        <Image className='justify-content-center' src={this.state.to_be_hidden_path} rounded/>                
-                    </Alert>
-                    <h3>Encrypted image is</h3> <br />
-                    <Image className='justify-content-center' src={this.state.encrypted_picture_path} rounded/>
-                </React.Fragment>
-                }
-              </section>
-            )}
-          </Dropzone>
+                        {this.state.isLoading &&
+                        <Spinner animation="border" role="status"></Spinner>
+                        }
+
+                        {this.state.recentImage &&
+                        <React.Fragment>
+                            <Alert variant='primary'>
+                                <h3>This image is hidden</h3> <br />
+                                <Image className='justify-content-center' src={this.state.to_be_hidden_path} rounded/>                
+                            </Alert>
+                            <h3>Encrypted image is</h3> <br />
+                            <Image className='justify-content-center' src={this.state.encrypted_picture_path} rounded/>
+                        </React.Fragment>
+                        }
+                        </section>
+                    )}
+                </Dropzone>
+            </div>
+            
          );
     }
 }

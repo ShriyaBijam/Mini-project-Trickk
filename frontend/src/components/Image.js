@@ -1,15 +1,24 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Card, CardDeck } from 'react-bootstrap';
 
 const Image = (props) => {
+    const myStyle = {
+        width:"300px",
+        height:"300px"
+    }
     return ( 
-        <Card style={{ width: '40rem' }} className="mx-auto mb-2">
-        <Card.Img variant="top" src={props.pic}/>
-        <Card.Body>
-        <img src={props.pic} height={props.height} width={props.width}></img>
-        </Card.Body>
+    <CardDeck>
+        <Card>
+            <Card.Img variant="top" src={props.pictHidden} />
         </Card>
-     );
+        <Card>
+            <Card.Img variant="top" src={props.pictUsed} />
+        </Card>
+        <Card>
+            <Card.Img variant="top" src={props.pictEncrpyt} />
+        </Card>
+    </CardDeck>
+    );
 }
  
 export default Image;

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
-import '../css/Classifier.css'
-import {Spinner, Button, Alert, Image} from 'react-bootstrap'
-import axios from 'axios'
+import '../css/Classifier.css';
+import {Spinner, Button, Alert, Image} from 'react-bootstrap';
+import axios from 'axios';
+import Navigation from './Navigation';
 
 class Decrypt extends Component {
     state = { 
@@ -11,7 +12,8 @@ class Decrypt extends Component {
         recentImage: null,
         encrypted_picture_path:null,
         to_be_hidden_path:null,
-        used_to_hide_path:null
+        used_to_hide_path:null,
+        token: localStorage.getItem("token")
      }
 
      onDrop =(files) =>{
@@ -52,12 +54,11 @@ class Decrypt extends Component {
          axios.post('http://localhost:8000/api/decrypt/', formData, {
              headers: {
                 'accept': 'application/json',
-                'content-type': 'multipart/form-data'
+                'content-type': 'multipart/form-data',
+                'authorization': `Token ${this.state.token}`,
              }
-         })
-         .then(resp=>{
-             this.getImageClass()
-
+         }).then(resp=>{
+            this.getImageClass()
          })
          .catch(err=>{
             console.log(err.data)
@@ -68,6 +69,7 @@ class Decrypt extends Component {
          axios.get(`http://localhost:8000/api/decrypt/`, {
              headers: {
                 'accept': 'application/json',
+                'authorization': `Token ${this.state.token}`,
              }
          })
          .then(resp=>{
@@ -92,42 +94,47 @@ class Decrypt extends Component {
             </li>
           ));
         return ( 
-            <Dropzone onDrop={this.onDrop} accept='image/png, image/jpeg'>
-            {({isDragActive, getRootProps, getInputProps}) => (
-              <section className="container">
-                <div {...getRootProps({className: 'dropzone back'})}>
-                  <input {...getInputProps()} />
-                  <i className="far fa-image mb-2 text-muted" style={{fontSize:100}}></i>
-                  <p className='text-muted'>{isDragActive ? "Here we GO " : "Drag image here to Decrypt"}</p>
-                </div>
-                <aside>
-                  {files}
-                </aside>
+            <div>
+                <Navigation />
 
-                {this.state.files.length >0 &&
-                <Button variant='info' size='lg' className='mt-3' onClick={this.sendImage}>Decrypt!</Button>
-                }
+                <Dropzone onDrop={this.onDrop} accept='image/png, image/jpeg'>
+                    {({isDragActive, getRootProps, getInputProps}) => (
+                    <section className="container">
+                        <div {...getRootProps({className: 'dropzone back'})}>
+                        <input {...getInputProps()} />
+                        <i className="far fa-image mb-2 text-muted" style={{fontSize:100}}></i>
+                        <p className='text-muted'>{isDragActive ? "Here we GO " : "Drag image here to Decrypt"}</p>
+                        </div>
+                        <aside>
+                        {files}
+                        </aside>
 
-                {this.state.isLoading &&
-                <Spinner animation="border" role="status"></Spinner>
-                }
+                        {this.state.files.length >0 &&
+                        <Button variant='info' size='lg' className='mt-3' onClick={this.sendImage}>Decrypt!</Button>
+                        }
 
-                {this.state.recentImage &&
-                <React.Fragment>
-                    <Alert variant='primary'>
-                        <h3>Given Encryted Image is</h3> <br />
-                        <Image className='justify-content-center' src={this.state.encrypted_picture_path} rounded/>                        
-                    </Alert>
-                    
-                    <h3>Image that was used to hide is</h3> <br />
-                    <Image className='justify-content-center' src={this.state.to_be_hidden_path} rounded/>
-                    <h3>Hidden image is</h3> <br />
-                    <Image className='justify-content-center' src={this.state.used_to_hide_path} rounded/>
-                </React.Fragment>
-                }
-              </section>
-            )}
-          </Dropzone>
+                        {this.state.isLoading &&
+                        <Spinner animation="border" role="status"></Spinner>
+                        }
+
+                        {this.state.recentImage &&
+                        <React.Fragment>
+                            <Alert variant='primary'>
+                                <h3>Given Encryted Image is</h3> <br />
+                                <Image className='justify-content-center' src={this.state.encrypted_picture_path} rounded/>                        
+                            </Alert>
+                            
+                            <h3>Image that was used to hide is</h3> <br />
+                            <Image className='justify-content-center' src={this.state.to_be_hidden_path} rounded/>
+                            <h3>Hidden image is</h3> <br />
+                            <Image className='justify-content-center' src={this.state.used_to_hide_path} rounded/>
+                        </React.Fragment>
+                        }
+                    </section>
+                    )}
+                </Dropzone>
+            </div>
+            
          );
     }
 }
