@@ -125,9 +125,9 @@ class Decrypt extends Component {
                             </Alert>
                             
                             <h3>Image that was used to hide is</h3> <br />
-                            <Image className='justify-content-center' src={this.state.to_be_hidden_path} rounded/>
+                            <Image width="500px" height="500px" className='justify-content-center' src={this.state.to_be_hidden_path} rounded/>
                             <h3>Hidden image is</h3> <br />
-                            <Image className='justify-content-center' src={this.state.used_to_hide_path} rounded/>
+                            <Image width="500px" height="500px" className='justify-content-center' src={this.state.used_to_hide_path} rounded/>
                         </React.Fragment>
                         }
                     </section>

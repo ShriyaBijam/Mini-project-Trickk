@@ -33,7 +33,7 @@ class PrivateRoute extends Component {
         {...rest}
         render={props => {
           return haveAcces ? (
-            <Redirect to={{pathname: '/allimages',}}/>
+            <Redirect to={{pathname: '/dashboard',}}/>
           ) : (
             <Component {...props} />
           );

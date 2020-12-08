@@ -123,10 +123,10 @@ class Encrypt extends Component {
                         <React.Fragment>
                             <Alert variant='primary'>
                                 <h3>This image is hidden</h3> <br />
-                                <Image className='justify-content-center' src={this.state.to_be_hidden_path} rounded/>                
+                                <Image height="500px" width="500px" className='justify-content-center' src={this.state.to_be_hidden_path} rounded/>                
                             </Alert>
                             <h3>Encrypted image is</h3> <br />
-                            <Image className='justify-content-center' src={this.state.encrypted_picture_path} rounded/>
+                            <Image className='justify-content-center' height="500px" width="500px" src={this.state.encrypted_picture_path} rounded/>
                         </React.Fragment>
                         }
                         </section>

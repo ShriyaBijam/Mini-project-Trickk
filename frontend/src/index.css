@@ -11,3 +11,44 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button[type=submit] {
+    
+  margin: auto;
+  background: #6D2CF6;
+  color: white;
+  cursor: pointer;
+  border-radius: 50px;
+  padding: 15px, 32px;
+  width: 50%;
+  text-align: center;
+  display: block;   
+}
+
+input, .btn{
+  width: 50%;
+  padding: 12px;
+  border: 1px solid #6D2CF6;
+  border-radius: 10px;
+  margin: 0 auto;
+  opacity: 0.85;
+  display: block;
+  font-size: 17px;
+  line-height: 20px;
+  text-decoration: none; /* remove underline from anchors */
+  /* box-sizing: border-box; */
+}
+
+input[type=text], input[type=password]{
+  margin: auto;
+}
+
+input:focus{
+  outline: none;
+  box-shadow: 0 0 10px rgb(94, 24, 243);
+  
+}
+
+form{
+  text-align:center;
+}

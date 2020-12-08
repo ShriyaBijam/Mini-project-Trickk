@@ -2,10 +2,6 @@ import React from 'react';
 import { Card, CardDeck } from 'react-bootstrap';
 
 const Image = (props) => {
-    const myStyle = {
-        width:"300px",
-        height:"300px"
-    }
     return ( 
     <CardDeck>
         <Card>

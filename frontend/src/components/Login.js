@@ -43,28 +43,25 @@ class Login extends Component {
         <PublicNav />
 
         <form onSubmit={this.onSubmit}>
-          <fieldset>
-            <legend>Login</legend>
-            <p>
-              <label htmlFor="username">Username</label>
-              <input
-                type="text" id="username"
-                onChange={e => this.setState({username: e.target.value})} />
-            </p>
-            <p>
-              <label htmlFor="password">Password</label>
-              <input
-                type="password" id="password"
-                onChange={e => this.setState({password: e.target.value})} />
-            </p>
-            <p>
-              <button type="submit">Login</button>
-            </p>
+          <h3>Login</h3>
 
-            <p>
-              Don't have an account? <Link to="/register">Register</Link>
-            </p>
-          </fieldset>
+          <div className="form-group">
+            <label for="username">Username</label>
+            <input type="text" placeholder="Enter username" id="username"
+            onChange={e => this.setState({username: e.target.value})}/>
+          </div>
+
+          <div className="form-group">
+            <label for="password">Password</label>
+            <input type="password" placeholder="Enter password" id="password"
+            onChange={e => this.setState({password: e.target.value})}/>
+          </div>
+
+          <button type="submit" className="btn btn-primary btn-block">Login</button>
+    
+          <p>
+            Don't have an account? <Link to="/register">Register</Link>
+          </p>
         </form>
       </div>
       

@@ -5,7 +5,7 @@ import '../css/Navigation.css';
 const Navigation = () => {
     return ( 
         <Navbar bg="dark" variant="dark" className="mb-1">
-            <Navbar.Brand href="/allimages">Trickk</Navbar.Brand>
+            <Navbar.Brand href="/dashboard">Trickk</Navbar.Brand>
             <Nav className="mr-auto">
             <Nav.Link href="/encrypt">Encrypt</Nav.Link>
             <Nav.Link href="/decrypt">Decrypt</Nav.Link>

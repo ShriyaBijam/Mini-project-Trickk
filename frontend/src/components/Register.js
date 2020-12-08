@@ -62,37 +62,32 @@ class Register extends Component {
             <PubNav />
 
             <form onSubmit={this.onSubmit}>
-              <fieldset>
-                <legend>Register</legend>
-                <p>
-                  <label htmlFor="username">Username</label>
-                  <input
-                    type="text" id="username"
-                    onChange={e => this.setState({username: e.target.value})} />
-                </p>
-                <p>
-                  <label htmlFor="password">Password</label>
-                  <input
-                    type="password" id="password" value={this.state.password}
-                    onChange={e => this.setState({password: e.target.value})} />
-                </p>
-                <p>
-                  <label htmlFor="password">Confirm Password</label>
-                  <input
-                    type="password" id="c_password" value={this.state.c_password}
-                    onChange={e => this.setState({c_password: e.target.value})} />
-                </p>
-                <p>
-                  <button type="submit">Register</button>
-                </p>
-      
-                <p>
-                  Already have an account? <Link to="/login">Login</Link>
-                </p>
-              </fieldset>
-          </form>
-          </div>
+              <h3>Register</h3>
+              <div className="form-group">
+                <label for="username">Username</label>
+                <input type="text" placeholder="Username" id="username"
+                onChange={e => this.setState({username: e.target.value})} value={this.state.username}/>
+              </div>
 
+              <div className="form-group">
+                <label for="password">Password</label>
+                <input type="password" placeholder="Enter password" id="password"
+                onChange={e => this.setState({password: e.target.value})}/>
+              </div>
+
+              <div className="form-group">
+                      <label for="c_password">Confirm Password</label>
+                      <input type="password" placeholder="Re-enter password" 
+                      onChange={e => this.setState({c_password: e.target.value})} id="c_password"/>
+              </div>
+
+              <button type="submit" className="btn btn-primary btn-block">Register</button>
+                
+              <p>
+                Already have an account? <Link to="/login">Login</Link>
+              </p>
+            </form>
+          </div>
         )
     }
 }
